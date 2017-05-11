@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Interface"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" Background="DarkSalmon">
+        Title="MainWindow" Height="600" Width="800" Background="DarkSalmon" ResizeMode="CanMinimize">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" ></RowDefinition>
@@ -41,7 +41,7 @@
                         <TabItem x:Name="repsym" Header="#" Width="50"></TabItem>
                         <TabItem x:Name="repsubstr" Header="@" Width="50"></TabItem>
                         <TabItem x:Name="removesym" Header="!" Width="50"></TabItem>
-                        <TabItem x:Name="brackets" Header="()" Width="50"></TabItem>
+                        <TabItem x:Name="brackets" Header="( )" Width="50"></TabItem>
                     </TabControl>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Center">
                         <Label Content="Variables" HorizontalAlignment="Center"></Label>
@@ -56,9 +56,9 @@
             </StackPanel>
         </Grid>
         <StackPanel Grid.Row="2" Margin="5">
-            <Label Content="Log:"></Label>
-            <ScrollViewer x:Name="scviewer" VerticalScrollBarVisibility="Auto" Height="280">
-                <TextBlock x:Name="log" Text="Welcome to Calc!" Background="White" FontStyle="Italic" FontSize="15" Foreground="Black"/>
+            <Label Content="Log"></Label>
+            <ScrollViewer x:Name="scviewer" VerticalScrollBarVisibility="Auto" Height="230">
+                <TextBlock x:Name="log" Text="Welcome to Calc!" Background="AntiqueWhite" FontStyle="Italic" FontSize="15" Foreground="Black"/>
             </ScrollViewer>
         </StackPanel>
     </Grid>

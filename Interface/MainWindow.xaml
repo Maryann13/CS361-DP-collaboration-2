@@ -5,8 +5,61 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Interface"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="MainWindow" Height="600" Width="800" Background="DarkSalmon">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" ></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Grid.Column ="0" Margin="5" Background="DarkSalmon" FontStyle="Italic">
+            <MenuItem Header="Commands">
+                <MenuItem Header="Test" Click="MenuItem_Click"/>
+                <Separator />
+                <MenuItem Header="Exit" Click="MenuItem_Click_1"/>
+            </MenuItem>
+        </Menu>
+
+        <Grid Grid.Row="1" Margin="5">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Label Content="0" Background="AntiqueWhite" Width="530" Margin="2"></Label>
+                    <Button Content="Calculate" Width="70" Margin="2"></Button>
+                    <Button Content="Del" Width="70" Margin="2"></Button>
+                    <Button Content="Clean" Width="70" Margin="2"></Button>
+                </StackPanel>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition ></ColumnDefinition>
+                        <ColumnDefinition ></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TabControl Grid.Column="0" >
+                        <TabItem x:Name="init" Header="Init" Width="50"></TabItem>
+                        <TabItem x:Name="removesp" Header="^" Width="50"></TabItem>
+                        <TabItem x:Name="concat" Header="&amp;&amp;" Width="50"></TabItem>
+                        <TabItem x:Name="repsym" Header="#" Width="50"></TabItem>
+                        <TabItem x:Name="repsubstr" Header="@" Width="50"></TabItem>
+                        <TabItem x:Name="removesym" Header="!" Width="50"></TabItem>
+                        <TabItem x:Name="brackets" Header="()" Width="50"></TabItem>
+                    </TabControl>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                        <Label Content="Variables" HorizontalAlignment="Center"></Label>
+                        <ListBox x:Name="variables"></ListBox>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Add" Width="70"></Button>
+                            <Button Content="Del" Width="70"></Button>
+                            <Button Content="Clear" Width="70"></Button>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid>
+        <StackPanel Grid.Row="2" Margin="5">
+            <Label Content="Log:"></Label>
+            <ScrollViewer x:Name="scviewer" VerticalScrollBarVisibility="Auto" Height="280">
+                <TextBlock x:Name="log" Text="Welcome to Calc!" Background="White" FontStyle="Italic" FontSize="15" Foreground="Black"/>
+            </ScrollViewer>
+        </StackPanel>
     </Grid>
 </Window>

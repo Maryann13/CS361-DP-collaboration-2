@@ -143,7 +143,7 @@ namespace Core
         }
     }
 
-    // Удаление начальных и конечных пробельных символов ^ F
+    // Удаление начальных и конечных пробельных символов. ^ F
     public class RemoveSpacesDecorator : FormulaReplaceDecorator
     {
         public override string Calculate(Dictionary<string, string> variables = null)
@@ -152,7 +152,7 @@ namespace Core
         }
     }
 
-    // Конкатенация строк F && c и F && v
+    // Конкатенация строк. F && c и F && v
     public class ConcatDecorator : FormulaReplaceDecorator
     {
         private Mode mode;
@@ -203,7 +203,7 @@ namespace Core
         }
     }
 
-    // Замена в строке F пробельных символов на символ a
+    // Замена в строке F пробельных символов на символ a. F # a
     public class ReplaceSpaceDecorator : FormulaDecorator
     {
         public char Symbol { get; }
@@ -219,6 +219,8 @@ namespace Core
         }
     }
 
+    // Замена в строке F всех вхождений подстроки c1/v1 на c2/v2.
+    // F @ (c1, c2), F @ (c1, v2), F @ (v1, c2), F @ (v1, v2)
     public class ReplaceSubstringDecorator : FormulaReplaceDecorator
     {
         public string Substring { get; }
@@ -243,5 +245,14 @@ namespace Core
         }
     }
 
-    //todo остальные декораторы
+    // Круглые скобки. (F)
+    public class ParenthesesDecorator : FormulaReplaceDecorator
+    {
+        public override string Calculate(Dictionary<string, string> variables = null)
+        {
+            return string.Format("({0})", formula.Calculate());
+        }
+    }
+
+    // TODO: Декоратор формулы F ! c, класс CharsFreqRemover и адаптер
 }

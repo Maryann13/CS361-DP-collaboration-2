@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    //просто абстрактный декоратор, ничего интересного)))))0000))))
+    // Абстрактный декоратор операций
     public abstract class OperationDecorator : Component
     {
         protected Component component;
@@ -20,33 +20,22 @@ namespace Core
         }
     }
 
-    //следующие далее конкретные декораторы можно(и может быть даже нужно) реализовать как одиночки
-    //...
-    //...
-    //...
-    //но мне лень(:
-
-    //Удаление начальных и конечных пробельных символов ^ F.
+    // Удаление начальных и конечных пробельных символов ^ F
     public class RemoveSpaces : OperationDecorator
     {
 
         public Operation CreateOperation()
         {
-            Operation operation = new Operation();
-            operation.typename = "RemoveSpaces";
+            Operation operation = new Operation(OperationType.RemoveSpaces);
             return operation;
         }
         public string Calculate(string s)
         {
-            if (s[0] == ' ')
-                s.Remove(0, 1);
-            if (s[s.Length - 1] == ' ')
-                s.Remove(s.Length - 1, 1);
-            return s;
+            return s.Trim();
         }
     }
 
-    //Конкатенация строк F && c и F && v.
+    // Конкатенация строк F && c и F && v
 
     public class Concat : OperationDecorator
     {
@@ -54,31 +43,27 @@ namespace Core
         //результат надо подавать в AddOperation
         public Operation CreateOperationConst(string c)
         {
-            Operation operation = new Operation();
-            operation.typename = "RemoveSpacesC";
+            Operation operation = new Operation(OperationType.ConcatC);
             operation.consts.Add(c);
             return operation;
         }
 
         public Operation CreateOperationVar(string v)
         {
-            Operation operation = new Operation();
-            operation.typename = "RemoveSpacesV";
+            Operation operation = new Operation(OperationType.ConcatV);
             operation.variables.Add(v);
             return operation;
         }
 
 
-        //variables - это словарь с значениями переменных, если он не подан, то значит функция была вызвана для операции с константой
+        //variables - это словарь с значениями переменных, если он не подан,
+        //то значит функция была вызвана для операции с константой
         public string Calculate(string s, Operation operation, Dictionary<string, string> variables = null)
         {
             if (variables == null)
                 return s + operation.consts[0];
             else
-            {
-                string value = variables[operation.variables[0]];
-                return s + value; 
-            }
+                return s + variables[operation.variables[0]]; 
         }
     }
 

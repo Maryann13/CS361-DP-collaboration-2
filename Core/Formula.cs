@@ -20,9 +20,8 @@ namespace Core
         {
             if (operations.Count == 0)
             {
-                Operation init = new Operation();
+                Operation init = new Operation(OperationType.Const);
                 init.consts.Add(c);
-                init.typename = "const";
                 operations.Add(init);
             }
         }
@@ -31,9 +30,8 @@ namespace Core
         {
             if (operations.Count == 0)
             {
-                Operation init = new Operation();
+                Operation init = new Operation(OperationType.Var);
                 init.consts.Add(var);
-                init.typename = "var";
                 operations.Add(init);
             }
         }

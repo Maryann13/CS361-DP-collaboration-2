@@ -59,5 +59,21 @@ namespace Core
         }
     }
 
+    // Замена в строке F пробельных символов на символ a
+    public class ReplaceSpaceDecorator : FormulaDecorator
+    {
+        public char Symbol { get; }
+
+        public ReplaceSpaceDecorator(char symb)
+        {
+            Symbol = symb;
+        }
+
+        public override string Calculate(Dictionary<string, string> variables = null)
+        {
+            return formula.Calculate().Replace(' ', Symbol);
+        }
+    }
+
     //todo остальные декораторы
 }

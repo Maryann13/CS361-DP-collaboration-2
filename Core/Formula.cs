@@ -6,46 +6,50 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    public abstract class Component
+    // Абстрактный класс формулы
+    public abstract class Formula
     {
-        public abstract void AddOperation(Operation operation);
-        public List<Operation> operations { get; set; }
+        /// <summary>
+        /// Вычислить значение формулы
+        /// </summary>
+        /// <param name="variables">Словарь со значениями переменных</param>
+        public abstract string Calculate(Dictionary<string, string> variables = null);
     }
 
-    //наша главная формула
-    public class Formula : Component
+    // Константа
+    public class Const : Formula
     {
-        //инициализация формулы константой
-        public void InitWithConst(string c)
+        public string Value { get; }
+
+        public Const(string c)
         {
-            if (operations.Count == 0)
-            {
-                Operation init = new Operation(OperationType.Const);
-                init.consts.Add(c);
-                operations.Add(init);
-            }
-        }
-        //инициализация формулы переменной
-        public void InitWithVar(string var)
-        {
-            if (operations.Count == 0)
-            {
-                Operation init = new Operation(OperationType.Var);
-                init.consts.Add(var);
-                operations.Add(init);
-            }
-        }
-        public override void AddOperation(Operation operation)
-        {
-            //не делать ничего, вся работа будет в AddOperation у декоратора конкретной операции
+            if (c == null)
+                throw new ArgumentNullException();
+            Value = c;
         }
 
-        public string Calculate()
+        public override string Calculate(Dictionary<string, string> variables = null)
         {
-            //todo
-            //для каждой из операций будет вызываться функция Calculate из соответствующего декоратора
-            //кроме первой(которая задается инициализаций const или var)
-            return "";
+            return Value;
+        }
+    }
+
+    // Переменная
+    public class Var : Formula
+    {
+        public string Value { get; }
+
+        public Var(string v)
+        {
+            Value = v;
+        }
+
+        public override string Calculate(Dictionary<string, string> variables = null)
+        {
+            if (variables.ContainsKey(Value))
+                return variables[Value];
+            else
+                throw new ApplicationException("Uninitialized variable");
         }
     }
 }

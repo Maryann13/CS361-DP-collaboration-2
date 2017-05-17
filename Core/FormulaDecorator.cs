@@ -185,8 +185,7 @@ namespace Core
         {
             if (!(formula is Empty) && ConcatMode == sMode)
             {
-                if (sMode == Mode.Const && sMode == dMode ||
-                    sMode == Mode.Var && ConcatString == source)
+                if (sMode == Mode.Const && sMode == dMode || ConcatString == source)
                 { 
                     ConcatString.Replace(source, dest);
                     mode = dMode;
@@ -199,7 +198,7 @@ namespace Core
                     Replacer.ReplaceEntries(formula as FormulaDecorator, strs, dest);
                 }
             }
-                
+            
             Replace(source, dest, sMode, dMode);
         }
     }

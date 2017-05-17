@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    // Абстрактный декоратор операций
+    // Абстрактный декоратор формулы
     public abstract class FormulaDecorator : Formula
     {
         protected Formula formula;

@@ -21,12 +21,21 @@ namespace Core
     // Константа
     public class Const : Formula
     {
-        public string Value { get; set; }
+        private string val;
+
+        public string Value
+        {
+            get { return val; }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException();
+                val = value;
+            }
+        }
 
         public Const(string c)
         {
-            if (c == null)
-                throw new ArgumentNullException();
             Value = c;
         }
 
@@ -42,7 +51,18 @@ namespace Core
     // Переменная
     public class Var : Formula
     {
-        public string Value { get; set; }
+        private string val;
+
+        public string Value
+        {
+            get { return val; }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException();
+                val = value;
+            }
+        }
 
         public Var(string v)
         {

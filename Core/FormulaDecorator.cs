@@ -101,6 +101,8 @@ namespace Core
 
         ReplaceSubstringDecorator(string source, string dest, Mode sMode, Mode dMode)
         {
+            if (source == null || dest == null)
+                throw new ArgumentNullException();
             rv = new ReplaceFormulaVisitor(source, dest, sMode, dMode);
         }
 

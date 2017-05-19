@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CharsFrequency">
+      <HintPath>..\CharsFrequency\bin\Debug\CharsFrequency.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Formula.cs" />
     <Compile Include="FormulaDecorator.cs" />
+    <Compile Include="FormulaVisitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

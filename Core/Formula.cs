@@ -14,6 +14,8 @@ namespace Core
         /// </summary>
         /// <param name="variables">Словарь со значениями переменных</param>
         public abstract string Calculate(Dictionary<string, string> variables = null);
+
+        public abstract void Accept(FormulaVisitor v);
     }
     
     public class Empty : Formula
@@ -22,5 +24,8 @@ namespace Core
         {
             return "";
         }
+
+        public override void Accept(FormulaVisitor v)
+        { }
     }
 }

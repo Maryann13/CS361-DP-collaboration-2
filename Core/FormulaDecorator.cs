@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CharsFrequency;
 
 namespace Core
 {
@@ -11,11 +12,15 @@ namespace Core
     {
         protected Formula formula;
 
-        public void SetFormula(Formula f)
+        public Formula Subformula
         {
-            if (f == null)
-                throw new ArgumentNullException();
-            formula = f;
+            get { return formula; }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException();
+                formula = value;
+            }
         }
 
         public FormulaDecorator()
@@ -27,79 +32,11 @@ namespace Core
         {
             return formula.Calculate();
         }
-    }
 
-    // Декоратор формулы с возможностью замены подстрок
-    public abstract class FormulaReplaceDecorator : FormulaDecorator
-    {
-        public virtual void Replace(string source, string dest, Mode sMode, Mode dMode)
+        public override void Accept(FormulaVisitor v)
         {
-            if (formula is Empty)
-                return;
-
-            if (formula is Var)
-            {
-                if (sMode == Mode.Var && (formula as Var).Value == source)
-                {
-                    (formula as Var).Value.Replace(source, dest);
-                    if (dMode == Mode.Const)
-                    {
-                        var fConst = new Const((formula as Var).Value);
-                        SetFormula(fConst);
-                    }
-                }
-            }
-            else if (formula is Const)
-            {
-                if (sMode == Mode.Const &&
-                    (sMode == dMode || (formula as Const).Value == source))
-                {
-                    (formula as Const).Value.Replace(source, dest);
-                    if (dMode == Mode.Var)
-                    {
-                        var fVar = new Var((formula as Const).Value);
-                        SetFormula(fVar);
-                    }
-                }
-                else if (sMode == Mode.Const)
-                {
-                    string[] sep = { source };
-                    var strs = (formula as Const).Value.Split(sep, StringSplitOptions.None);
-
-                    var fEmpty = new Const("");
-                    Replacer.ReplaceEntries(fEmpty, strs, dest);
-                    SetFormula(fEmpty);
-                }
-            }
-            else
-                (formula as FormulaReplaceDecorator).Replace(source, dest, sMode, dMode);
-        }
-    }
-
-    public static class Replacer
-    {
-        public static void ReplaceEntries(FormulaDecorator formula, string[] strs, string dest)
-        {
-            for (int i = 0; i < strs.Length - 1; ++i)
-            {
-                if (strs[i].Length > 0)
-                {
-                    var concatC = new ConcatDecorator(strs[i], Mode.Const);
-                    concatC.SetFormula(formula);
-                    formula.SetFormula(concatC);
-                }
-
-                var concatV = new ConcatDecorator(dest, Mode.Var);
-                concatV.SetFormula(formula);
-                formula.SetFormula(concatV);
-            }
-
-            if (strs[strs.Length - 1].Length > 0)
-            {
-                var concat = new ConcatDecorator(strs[strs.Length - 1], Mode.Const);
-                concat.SetFormula(formula);
-                formula.SetFormula(concat);
-            }
+            v.Visit(this);
+            formula.Accept(v);
         }
     }
 
@@ -107,7 +44,7 @@ namespace Core
     public enum Mode { Const, Var };
 
     // Константа
-    public class Const : FormulaReplaceDecorator
+    public class Const : FormulaDecorator
     {
         public string Value { get; }
 
@@ -118,6 +55,9 @@ namespace Core
             Value = c;
         }
 
+        public override void Accept(FormulaVisitor v)
+        { }
+
         public override string Calculate(Dictionary<string, string> variables = null)
         {
             return Value;
@@ -125,7 +65,7 @@ namespace Core
     }
 
     // Переменная
-    public class Var : FormulaReplaceDecorator
+    public class Var : FormulaDecorator
     {
         public string Value { get; }
 
@@ -133,6 +73,9 @@ namespace Core
         {
             Value = v;
         }
+
+        public override void Accept(FormulaVisitor v)
+        { }
 
         public override string Calculate(Dictionary<string, string> variables = null)
         {
@@ -144,7 +87,7 @@ namespace Core
     }
 
     // Удаление начальных и конечных пробельных символов. ^ F
-    public class RemoveSpacesDecorator : FormulaReplaceDecorator
+    public class RemoveSpacesDecorator : FormulaDecorator
     {
         public override string Calculate(Dictionary<string, string> variables = null)
         {
@@ -153,22 +96,17 @@ namespace Core
     }
 
     // Конкатенация строк. F && c и F && v
-    public class ConcatDecorator : FormulaReplaceDecorator
+    public class ConcatDecorator : FormulaDecorator
     {
-        private Mode mode;
-
         public string ConcatString { get; }
-        public Mode ConcatMode
-        {
-            get { return mode; }
-        }
+        public Mode ConcatMode { get; set; }
         
         public ConcatDecorator(string str, Mode mode)
         {
             if (str == null)
                 throw new ArgumentNullException();
             ConcatString = str;
-            this.mode = mode;
+            ConcatMode = mode;
         }
 
         public override string Calculate(Dictionary<string, string> variables = null)
@@ -179,27 +117,6 @@ namespace Core
                 return Calculate() + variables[ConcatString];
             else
                 throw new ApplicationException("Uninitialized variable");
-        }
-
-        public override void Replace(string source, string dest, Mode sMode, Mode dMode)
-        {
-            if (!(formula is Empty) && ConcatMode == sMode)
-            {
-                if (sMode == Mode.Const && sMode == dMode || ConcatString == source)
-                { 
-                    ConcatString.Replace(source, dest);
-                    mode = dMode;
-                }
-                else if (sMode == Mode.Const)
-                {
-                    string[] sep = { source };
-                    var strs = ConcatString.Split(sep, StringSplitOptions.None);
-
-                    Replacer.ReplaceEntries(formula as FormulaDecorator, strs, dest);
-                }
-            }
-            
-            Replace(source, dest, sMode, dMode);
         }
     }
 
@@ -221,32 +138,24 @@ namespace Core
 
     // Замена в строке F всех вхождений подстроки c1/v1 на c2/v2.
     // F @ (c1, c2), F @ (c1, v2), F @ (v1, c2), F @ (v1, v2)
-    public class ReplaceSubstringDecorator : FormulaReplaceDecorator
+    public class ReplaceSubstringDecorator : FormulaDecorator
     {
-        public string Substring { get; }
-        public string Replacement { get; }
-        public Mode SourceMode { get; }
-        public Mode DestMode { get; }
+        private ReplaceFormulaVisitor rv;
 
-        public ReplaceSubstringDecorator(string source, string dest, Mode sMode, Mode dMode)
+        ReplaceSubstringDecorator(string source, string dest, Mode sMode, Mode dMode)
         {
-            if (source == null || dest == null)
-                throw new ArgumentNullException();
-            Substring = source;
-            Replacement = dest;
-            SourceMode = sMode;
-            DestMode = dMode;
+            rv = new ReplaceFormulaVisitor(source, dest, sMode, dMode);
         }
 
         public override string Calculate(Dictionary<string, string> variables = null)
         {
-            Replace(Substring, Replacement, SourceMode, DestMode);
+            Accept(rv);
             return formula.Calculate();
         }
     }
 
     // Круглые скобки. (F)
-    public class ParenthesesDecorator : FormulaReplaceDecorator
+    public class ParenthesesDecorator : FormulaDecorator
     {
         public override string Calculate(Dictionary<string, string> variables = null)
         {
@@ -254,5 +163,5 @@ namespace Core
         }
     }
 
-    // TODO: Декоратор формулы F ! c, класс CharsFreqRemover и адаптер
+    // TODO: Декоратор формулы F ! c и адаптер для CharsFreqRemover
 }

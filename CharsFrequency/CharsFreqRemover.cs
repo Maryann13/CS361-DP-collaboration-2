@@ -13,7 +13,7 @@ namespace CharsFrequency
         public char Freq { get; }
         public char Rare { get; }
 
-        CharsFreqRemover(string source)
+        public CharsFreqRemover(string source)
         {
             if (source == null)
                 throw new ArgumentNullException();
@@ -40,7 +40,7 @@ namespace CharsFrequency
             }
         }
 
-        string Remove(string s)
+        public string Remove(string s)
         {
             if (emptySrc)
                 return s;

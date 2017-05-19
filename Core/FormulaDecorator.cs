@@ -128,30 +128,26 @@ namespace Core
     // F @ (c1, c2), F @ (c1, v2), F @ (v1, c2), F @ (v1, v2)
     public class ReplaceSubstringDecorator : FormulaDecorator
     {
-        private ReplaceFormulaVisitor rv;
+        private ReplaceVisitorAdapter rv;
 
-        ReplaceSubstringDecorator(Const source, Const dest)
+        public ReplaceSubstringDecorator(Const source, Const dest)
         {
-            rv = new ReplaceFormulaVisitor
-                (new ConstVar(source), new ConstVar(dest));
+            rv = new ReplaceVisitorAdapter(source, dest);
         }
 
-        ReplaceSubstringDecorator(Const source, Var dest)
+        public ReplaceSubstringDecorator(Const source, Var dest)
         {
-            rv = new ReplaceFormulaVisitor
-                (new ConstVar(source), new ConstVar(dest));
+            rv = new ReplaceVisitorAdapter(source, dest);
         }
 
-        ReplaceSubstringDecorator(Var source, Const dest)
+        public ReplaceSubstringDecorator(Var source, Const dest)
         {
-            rv = new ReplaceFormulaVisitor
-                (new ConstVar(source), new ConstVar(dest));
+            rv = new ReplaceVisitorAdapter(source, dest);
         }
 
-        ReplaceSubstringDecorator(Var source, Var dest)
+        public ReplaceSubstringDecorator(Var source, Var dest)
         {
-            rv = new ReplaceFormulaVisitor
-                (new ConstVar(source), new ConstVar(dest));
+            rv = new ReplaceVisitorAdapter(source, dest);
         }
 
         public override string Calculate(Dictionary<string, string> variables = null)
@@ -170,5 +166,20 @@ namespace Core
         }
     }
 
-    // TODO: Декоратор формулы F ! c и адаптер для CharsFreqRemover
+    // Удаление из F всех вхождений самого частого
+    // и самого редкого символов из строки c. F ! c
+    public class CharsFreqRemoveAdapter : FormulaDecorator
+    {
+        private CharsFreqRemover cfr;
+
+        public CharsFreqRemoveAdapter(Const value)
+        {
+            cfr = new CharsFreqRemover(value.Value);
+        }
+
+        public override string Calculate(Dictionary<string, string> variables = null)
+        {
+            return cfr.Remove(Calculate());
+        }
+    }
 }

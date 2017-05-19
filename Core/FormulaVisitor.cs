@@ -89,14 +89,14 @@ namespace Core
 
             for (int i = 0; i < strs.Length; ++i)
             {
-                var concatC = new ConcatDecorator(new ConstVar(strs[i], Mode.Const));
+                var concatC = new ConcatDecorator(new Const(strs[i]));
                 concatC.Subformula = formula.Subformula;
                 formula.Subformula = concatC;
 
                 if (i < strs.Length - 1 || emptyLast)
                 {
                     Assert.IsTrue(Replacement.IsVar);
-                    var concatV = new ConcatDecorator(Replacement);
+                    var concatV = new ConcatDecorator(new Var(Replacement.Value));
                     concatV.Subformula = formula.Subformula;
                     formula.Subformula = concatV;
                 }

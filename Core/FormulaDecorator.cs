@@ -56,17 +56,22 @@ namespace Core
             get { return !IsConst; }
         }
 
-        public ConstVar(string value, Mode mode)
+        public ConstVar(Const value)
         {
             if (value == null)
                 throw new ArgumentNullException();
-            val = value;
-            IsConst = mode == Mode.Const;
+            val = value.Value;
+            IsConst = true;
+        }
+
+        public ConstVar(Var value)
+        {
+            if (value == null)
+                throw new ArgumentNullException();
+            val = value.Value;
+            IsConst = false;
         }
     }
-
-    // Режим константы/переменной
-    public enum Mode { Const, Var };
 
     // Удаление начальных и конечных пробельных символов. ^ F
     public class RemoveSpacesDecorator : FormulaDecorator
@@ -82,11 +87,14 @@ namespace Core
     {
         public ConstVar ConcatValue { get; }
         
-        public ConcatDecorator(ConstVar value)
+        public ConcatDecorator(Const value)
         {
-            if (value == null)
-                throw new ArgumentNullException();
-            ConcatValue = value;
+            ConcatValue = new ConstVar(value);
+        }
+
+        public ConcatDecorator(Var value)
+        {
+            ConcatValue = new ConstVar(value);
         }
 
         public override string Calculate(Dictionary<string, string> variables = null)
@@ -122,11 +130,28 @@ namespace Core
     {
         private ReplaceFormulaVisitor rv;
 
-        ReplaceSubstringDecorator(ConstVar source, ConstVar dest)
+        ReplaceSubstringDecorator(Const source, Const dest)
         {
-            if (source == null || dest == null)
-                throw new ArgumentNullException();
-            rv = new ReplaceFormulaVisitor(source, dest);
+            rv = new ReplaceFormulaVisitor
+                (new ConstVar(source), new ConstVar(dest));
+        }
+
+        ReplaceSubstringDecorator(Const source, Var dest)
+        {
+            rv = new ReplaceFormulaVisitor
+                (new ConstVar(source), new ConstVar(dest));
+        }
+
+        ReplaceSubstringDecorator(Var source, Const dest)
+        {
+            rv = new ReplaceFormulaVisitor
+                (new ConstVar(source), new ConstVar(dest));
+        }
+
+        ReplaceSubstringDecorator(Var source, Var dest)
+        {
+            rv = new ReplaceFormulaVisitor
+                (new ConstVar(source), new ConstVar(dest));
         }
 
         public override string Calculate(Dictionary<string, string> variables = null)

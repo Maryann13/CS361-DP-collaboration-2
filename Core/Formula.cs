@@ -72,9 +72,9 @@ namespace Core
         public override void Accept(FormulaVisitor v)
         { }
 
-        public override string Calculate(Dictionary<string, string> variables = null)
+        public override string Calculate(Dictionary<string, string> variables)
         {
-            if (variables.ContainsKey(Value))
+            if (variables != null && variables.ContainsKey(Value))
                 return variables[Value];
             else
                 throw new ApplicationException("Uninitialized variable");

@@ -93,7 +93,7 @@ namespace Core
         {
             if (ConcatValue.IsConst)
                 return Calculate() + ConcatValue;
-            else if (variables.ContainsKey(ConcatValue.Value))
+            else if (variables != null && variables.ContainsKey(ConcatValue.Value))
                 return Calculate() + variables[ConcatValue.Value];
             else
                 throw new ApplicationException("Uninitialized variable");

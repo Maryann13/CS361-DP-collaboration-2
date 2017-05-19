@@ -25,7 +25,7 @@ namespace Core
 
         public FormulaDecorator()
         {
-            formula = new Empty();
+            formula = new Const("");
         }
 
         public override string Calculate(Dictionary<string, string> variables = null)
@@ -42,49 +42,6 @@ namespace Core
 
     // Режим для декораторов, выполняющих операции с константами и переменными
     public enum Mode { Const, Var };
-
-    // Константа
-    public class Const : FormulaDecorator
-    {
-        public string Value { get; }
-
-        public Const(string c)
-        {
-            if (c == null)
-                throw new ArgumentNullException();
-            Value = c;
-        }
-
-        public override void Accept(FormulaVisitor v)
-        { }
-
-        public override string Calculate(Dictionary<string, string> variables = null)
-        {
-            return Value;
-        }
-    }
-
-    // Переменная
-    public class Var : FormulaDecorator
-    {
-        public string Value { get; }
-
-        public Var(string v)
-        {
-            Value = v;
-        }
-
-        public override void Accept(FormulaVisitor v)
-        { }
-
-        public override string Calculate(Dictionary<string, string> variables = null)
-        {
-            if (variables.ContainsKey(Value))
-                return variables[Value];
-            else
-                throw new ApplicationException("Uninitialized variable");
-        }
-    }
 
     // Удаление начальных и конечных пробельных символов. ^ F
     public class RemoveSpacesDecorator : FormulaDecorator

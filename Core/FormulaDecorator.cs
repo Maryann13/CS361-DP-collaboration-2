@@ -40,7 +40,32 @@ namespace Core
         }
     }
 
-    // Режим для декораторов, выполняющих операции с константами и переменными
+    // Обёртка над строкой для различения констант и переменных
+    public class ConstVar
+    {
+        private string val;
+
+        public string Value
+        {
+            get { return val; }
+        }
+
+        public bool IsConst { get; set; }
+        public bool IsVar
+        {
+            get { return !IsConst; }
+        }
+
+        public ConstVar(string value, Mode mode)
+        {
+            if (value == null)
+                throw new ArgumentNullException();
+            val = value;
+            IsConst = mode == Mode.Const;
+        }
+    }
+
+    // Режим константы/переменной
     public enum Mode { Const, Var };
 
     // Удаление начальных и конечных пробельных символов. ^ F
@@ -55,23 +80,21 @@ namespace Core
     // Конкатенация строк. F && c и F && v
     public class ConcatDecorator : FormulaDecorator
     {
-        public string ConcatString { get; }
-        public Mode ConcatMode { get; set; }
+        public ConstVar ConcatValue { get; }
         
-        public ConcatDecorator(string str, Mode mode)
+        public ConcatDecorator(ConstVar value)
         {
-            if (str == null)
+            if (value == null)
                 throw new ArgumentNullException();
-            ConcatString = str;
-            ConcatMode = mode;
+            ConcatValue = value;
         }
 
         public override string Calculate(Dictionary<string, string> variables = null)
         {
-            if (ConcatMode == Mode.Const)
-                return Calculate() + ConcatString;
-            else if (variables.ContainsKey(ConcatString))
-                return Calculate() + variables[ConcatString];
+            if (ConcatValue.IsConst)
+                return Calculate() + ConcatValue;
+            else if (variables.ContainsKey(ConcatValue.Value))
+                return Calculate() + variables[ConcatValue.Value];
             else
                 throw new ApplicationException("Uninitialized variable");
         }
@@ -99,11 +122,11 @@ namespace Core
     {
         private ReplaceFormulaVisitor rv;
 
-        ReplaceSubstringDecorator(string source, string dest, Mode sMode, Mode dMode)
+        ReplaceSubstringDecorator(ConstVar source, ConstVar dest)
         {
             if (source == null || dest == null)
                 throw new ArgumentNullException();
-            rv = new ReplaceFormulaVisitor(source, dest, sMode, dMode);
+            rv = new ReplaceFormulaVisitor(source, dest);
         }
 
         public override string Calculate(Dictionary<string, string> variables = null)

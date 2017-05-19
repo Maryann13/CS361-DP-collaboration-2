@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Core
 {
@@ -16,19 +17,15 @@ namespace Core
     // Визитор на замену подстрок в формуле
     public class ReplaceFormulaVisitor : FormulaVisitor
     {
-        public string Substring { get; }
-        public string Replacement { get; }
-        public Mode SourceMode { get; }
-        public Mode DestMode { get; }
+        public ConstVar Substring { get; }
+        public ConstVar Replacement { get; }
 
-        public ReplaceFormulaVisitor(string source, string dest, Mode sMode, Mode dMode)
+        public ReplaceFormulaVisitor(ConstVar source, ConstVar dest)
         {
             if (source == null || dest == null)
                 throw new ArgumentNullException();
             Substring = source;
             Replacement = dest;
-            SourceMode = sMode;
-            DestMode = dMode;
         }
 
         public void Visit(FormulaDecorator f)
@@ -39,15 +36,15 @@ namespace Core
         public void Visit(ConcatDecorator f)
         {
             Replace(f);
-            if (f.ConcatMode == SourceMode)
+            if (f.ConcatValue.IsConst == Substring.IsConst)
             {
-                if (SourceMode == Mode.Const && SourceMode == DestMode || f.ConcatString == Substring)
+                if (Substring.IsConst && Replacement.IsConst || f.ConcatValue.Value == Substring.Value)
                 {
-                    f.ConcatString.Replace(Substring, Replacement);
-                    f.ConcatMode = DestMode;
+                    f.ConcatValue.Value.Replace(Substring.Value, Replacement.Value);
+                    f.ConcatValue.IsConst = Replacement.IsConst;
                 }
-                else if (SourceMode == Mode.Const)
-                    ReplaceEntries(f, f.ConcatString);
+                else if (Substring.IsConst)
+                    ReplaceEntries(f, f.ConcatValue.Value);
             }
         }
 
@@ -55,10 +52,10 @@ namespace Core
         {
             if (f.Subformula is Var)
             {
-                if (SourceMode == Mode.Var && (f.Subformula as Var).Value == Substring)
+                if (Substring.IsVar && (f.Subformula as Var).Value == Substring.Value)
                 {
-                    (f.Subformula as Var).Value.Replace(Substring, Replacement);
-                    if (DestMode == Mode.Const)
+                    (f.Subformula as Var).Value.Replace(Substring.Value, Replacement.Value);
+                    if (Replacement.IsConst)
                     {
                         var fConst = new Const((f.Subformula as Var).Value);
                         f.Subformula = fConst;
@@ -67,24 +64,24 @@ namespace Core
             }
             else if (f.Subformula is Const)
             {
-                if (SourceMode == Mode.Const &&
-                    (SourceMode == DestMode || (f.Subformula as Const).Value == Substring))
+                if (Substring.IsConst && (Replacement.IsConst ||
+                    (f.Subformula as Const).Value == Substring.Value))
                 {
-                    (f.Subformula as Const).Value.Replace(Substring, Replacement);
-                    if (DestMode == Mode.Var)
+                    (f.Subformula as Const).Value.Replace(Substring.Value, Replacement.Value);
+                    if (Replacement.IsVar)
                     {
                         var fVar = new Var((f.Subformula as Const).Value);
                         f.Subformula = fVar;
                     }
                 }
-                else if (SourceMode == Mode.Const)
+                else if (Substring.IsConst && Replacement.IsVar)
                     ReplaceEntries(f, (f.Subformula as Const).Value);
             }
         }
 
         private void ReplaceEntries(FormulaDecorator formula, string str)
         {
-            string[] sep = { Substring };
+            string[] sep = { Substring.Value };
             var strs = str.Split(sep, StringSplitOptions.None);
 
             bool emptyLast = strs.Last().Length == 0;
@@ -92,13 +89,14 @@ namespace Core
 
             for (int i = 0; i < strs.Length; ++i)
             {
-                var concatC = new ConcatDecorator(strs[i], Mode.Const);
+                var concatC = new ConcatDecorator(new ConstVar(strs[i], Mode.Const));
                 concatC.Subformula = formula.Subformula;
                 formula.Subformula = concatC;
 
                 if (i < strs.Length - 1 || emptyLast)
                 {
-                    var concatV = new ConcatDecorator(Replacement, Mode.Var);
+                    Assert.IsTrue(Replacement.IsVar);
+                    var concatV = new ConcatDecorator(Replacement);
                     concatV.Subformula = formula.Subformula;
                     formula.Subformula = concatV;
                 }

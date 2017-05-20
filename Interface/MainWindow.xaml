@@ -26,8 +26,8 @@
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Content="0" Background="White" Width="530" Margin="2"></Label>
                     <Button Content="Calculate" Width="70" Margin="2"></Button>
-                    <Button Content="Del" Width="70" Margin="2"></Button>
-                    <Button Content="Clean" Width="70" Margin="2"></Button>
+                    <Button Content="Delete Last" Width="70" Margin="2"></Button>
+                    <Button Content="Clear" Width="70" Margin="2"></Button>
                 </StackPanel>
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
@@ -72,7 +72,7 @@
                             </StackPanel>
                         </TabItem>
                         <TabItem x:Name="removesp" Header="^" Width="50">
-                            <Button Content="Add" Width="50" Margin="5"></Button>
+                            <Button Content="Add" Width="50" Height="18" Margin="5"></Button>
                         </TabItem>
                         <TabItem x:Name="concat" Header="&amp;&amp;" Width="50">
                             <StackPanel Margin="5" Width="200">
@@ -157,16 +157,20 @@
                             </StackPanel>
                         </TabItem>
                         <TabItem x:Name="brackets" Header="( )" Width="50">
-                            <Button Content="Add" Width="50" Margin="5"></Button>
+                            <Button Content="Add" Width="50" Height="18" Margin="5"></Button>
                         </TabItem>
                     </TabControl>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Center">
                         <Label Content="Variables" HorizontalAlignment="Center"></Label>
                         <ListBox x:Name="variables"></ListBox>
-                        <StackPanel Orientation="Horizontal">
-                            <Button Content="Add" Width="70"></Button>
-                            <Button Content="Del" Width="70"></Button>
-                            <Button Content="Clear" Width="70"></Button>
+                        <StackPanel Orientation="Vertical" Margin="5">
+                            <StackPanel Orientation="Horizontal" Margin="1">
+                                <TextBox x:Name="new_var" Width="70" ></TextBox>
+                                <Button Content="Add" Width="35" Click="Add_Click"></Button>
+                                <Button Content="Del" Width="35" Click="Del_Click"></Button>
+                            </StackPanel>
+                            <Button Content="Set Variables" Margin="1" Click="Del_Click"></Button>
+                            <Button Content="Clear" Margin="1" Click="Clear_Click"></Button>
                         </StackPanel>
                     </StackPanel>
                 </Grid>

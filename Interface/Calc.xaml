@@ -1,0 +1,22 @@
+﻿<Window x:Class="Interface.Calc"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Interface"
+        mc:Ignorable="d"
+        Title="Calc" Height="200" Width="300">
+    <Grid Margin="5">
+        <StackPanel Orientation="Vertical">
+            <Label>Formula:</Label>
+            <TextBlock x:Name="formula"></TextBlock>
+            <Label>Result:</Label>
+            <TextBlock x:Name="result"></TextBlock>
+            <Label>Variables:</Label>
+            <StackPanel x:Name="variables" Orientation="Vertical">
+                
+            </StackPanel>
+            <Button x:Name="calculate" Click="calculate_Click">Calculate!</Button>
+        </StackPanel>
+    </Grid>
+</Window>

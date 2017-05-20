@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Interface"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" Background="#FF08BF96" ResizeMode="CanMinimize">
+        Title="MainWindow" Height="600" Width="800" Background="#FF08BF96" ResizeMode="CanMinimize" Loaded="Window_Loaded">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" ></RowDefinition>
@@ -25,9 +25,9 @@
             <StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
                     <Label Content="0" Background="White" Width="530" Margin="2"></Label>
-                    <Button Content="Calculate" Width="70" Margin="2"></Button>
-                    <Button Content="Delete Last" Width="70" Margin="2"></Button>
-                    <Button Content="Clear" Width="70" Margin="2"></Button>
+                    <Button x:Name="calculate" Content="Calculate" Width="70" Margin="2" Click="calculate_Click"></Button>
+                    <Button x:Name="del_last" Content="Delete Last" Width="70" Margin="2" Click="del_last_Click"></Button>
+                    <Button x:Name="clear_formula" Content="Clear" Width="70" Margin="2" Click="clear_formula_Click"></Button>
                 </StackPanel>
                 <Grid Margin="5">
                     <Grid.ColumnDefinitions>
@@ -62,29 +62,29 @@
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Label Content="Const"></Label>
                                     <TextBox Width="70" Margin="5"></TextBox>
-                                    <Button Content="Init" Width="50" Margin="5"></Button>
+                                    <Button x:Name="init_with_const" Content="Init" Width="50" Margin="5" Click="init_with_const_Click"></Button>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Label Content="Variable"></Label>
                                     <TextBox Width="70" Margin="5"></TextBox>
-                                    <Button Content="Init" Width="50" Margin="5"></Button>
+                                    <Button x:Name="init_with_var" Content="Init" Width="50" Margin="5" Click="init_with_var_Click"></Button>
                                 </StackPanel>
                             </StackPanel>
                         </TabItem>
                         <TabItem x:Name="removesp" Header="^" Width="50">
-                            <Button Content="Add" Width="50" Height="18" Margin="5"></Button>
+                            <Button x:Name="remove_spaces" Content="Add" Width="50" Height="18" Margin="5" Click="remove_spaces_Click"></Button>
                         </TabItem>
                         <TabItem x:Name="concat" Header="&amp;&amp;" Width="50">
                             <StackPanel Margin="5" Width="200">
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Label Content="Const"></Label>
                                     <TextBox Width="70" Margin="5"></TextBox>
-                                    <Button Content="Concat" Width="50" Margin="5"></Button>
+                                    <Button x:Name="concat_with_const" Content="Concat" Width="50" Margin="5" Click="concat_with_const_Click"></Button>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Label Content="Variable"></Label>
                                     <TextBox Width="70" Margin="5"></TextBox>
-                                    <Button Content="Concat" Width="50" Margin="5"></Button>
+                                    <Button x:Name="concat_with_var" Content="Concat" Width="50" Margin="5" Click="concat_with_var_Click"></Button>
                                 </StackPanel>
                             </StackPanel>
                         </TabItem>
@@ -93,7 +93,7 @@
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Label Content="Char"></Label>
                                     <TextBox Width="70" Margin="5"></TextBox>
-                                    <Button Content="Replace" Width="50" Margin="5"></Button>
+                                    <Button x:Name="replace_symbol" Content="Replace" Width="50" Margin="5" Click="replace_symbol_Click"></Button>
                                 </StackPanel>
                             </StackPanel>
                         </TabItem>
@@ -139,10 +139,10 @@
                                 </StackPanel>
 
                                 <StackPanel Orientation="Vertical">
-                                    <Button Content="Replace" Width="50" Height="18" Margin="5"></Button>
-                                    <Button Content="Replace" Width="50" Height="18" Margin="5"></Button>
-                                    <Button Content="Replace" Width="50" Height="18" Margin="5"></Button>
-                                    <Button Content="Replace" Width="50" Height="18" Margin="5"></Button>
+                                    <Button x:Name="replace_substr_const_const" Content="Replace" Width="50" Height="18" Margin="5" Click="replace_substr_const_const_Click"></Button>
+                                    <Button x:Name="replace_substr_const_var" Content="Replace" Width="50" Height="18" Margin="5" Click="replace_substr_const_var_Click"></Button>
+                                    <Button x:Name="replace_substr_var_const" Content="Replace" Width="50" Height="18" Margin="5" Click="replace_substr_var_const_Click"></Button>
+                                    <Button x:Name="replace_substr_var_var" Content="Replace" Width="50" Height="18" Margin="5" Click="replace_substr_var_var_Click"></Button>
                                 </StackPanel>
 
                             </StackPanel>
@@ -152,12 +152,12 @@
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Label Content="Const"></Label>
                                     <TextBox Width="70" Margin="5"></TextBox>
-                                    <Button Content="Remove" Width="50" Margin="5"></Button>
+                                    <Button x:Name="remove_symbol" Content="Remove" Width="50" Margin="5" Click="remove_symbol_Click"></Button>
                                 </StackPanel>
                             </StackPanel>
                         </TabItem>
                         <TabItem x:Name="brackets" Header="( )" Width="50">
-                            <Button Content="Add" Width="50" Height="18" Margin="5"></Button>
+                            <Button x:Name="add_brackets" Content="Add" Width="50" Height="18" Margin="5" Click="add_brackets_Click"></Button>
                         </TabItem>
                     </TabControl>
                     <StackPanel Grid.Column="1" HorizontalAlignment="Center">
@@ -169,7 +169,6 @@
                                 <Button Content="Add" Width="35" Click="Add_Click"></Button>
                                 <Button Content="Del" Width="35" Click="Del_Click"></Button>
                             </StackPanel>
-                            <Button Content="Set Variables" Margin="1" Click="Del_Click"></Button>
                             <Button Content="Clear" Margin="1" Click="Clear_Click"></Button>
                         </StackPanel>
                     </StackPanel>

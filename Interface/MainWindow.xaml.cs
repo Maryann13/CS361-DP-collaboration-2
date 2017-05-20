@@ -22,6 +22,13 @@ namespace Interface
     {
         public Dictionary<string, string> var_dict = new Dictionary<string, string>();
 
+        private Calc calculate_window = new Calc();
+
+        //
+        // вспомогательные функции
+        //
+        //
+
         public bool IsValidVar(string var)
         {
             if (var == null || var == "")
@@ -37,10 +44,27 @@ namespace Interface
             return true;
         }
 
+        //
+        //
+        // конструкторы и загрузчики
+        //
+        //
+
         public MainWindow()
         {
             InitializeComponent();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            calculate_window.Owner = this;
+        }
+
+        //
+        //
+        // меню
+        //
+        //
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -52,8 +76,12 @@ namespace Interface
 
         }
 
+        //
+        //
+        // кнопки для работы со списком переменных
+        //
+        //
 
-        //кнопки для работы со списком переменных
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             string var = new_var.Text;
@@ -87,6 +115,101 @@ namespace Interface
         }
 
         private void Clear_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+        //
+        //
+        // основные кнопки
+        //
+        //
+
+        private void calculate_Click(object sender, RoutedEventArgs e)
+        {
+            calculate_window.ShowDialog();
+        }
+
+        private void del_last_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void clear_formula_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        //
+        //
+        // кнопки добавления операций
+        //
+        //
+
+        // init
+        private void init_with_const_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void init_with_var_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // remove spaces
+        private void remove_spaces_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // concatination
+        private void concat_with_const_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void concat_with_var_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // replace symbol
+        private void replace_symbol_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // replace substring
+        private void replace_substr_const_const_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void replace_substr_const_var_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void replace_substr_var_const_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void replace_substr_var_var_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // remove symbol
+        private void remove_symbol_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        // add brackets
+        private void add_brackets_Click(object sender, RoutedEventArgs e)
         {
 
         }

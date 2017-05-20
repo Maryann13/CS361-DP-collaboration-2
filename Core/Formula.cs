@@ -6,48 +6,78 @@ using System.Threading.Tasks;
 
 namespace Core
 {
-    public abstract class Component
+    // Абстрактный класс формулы
+    public abstract class Formula
     {
-        public abstract void AddOperation(Operation operation);
-        public List<Operation> operations { get; set; }
+        /// <summary>
+        /// Вычислить значение формулы
+        /// </summary>
+        /// <param name="variables">Словарь со значениями переменных</param>
+        public abstract string Calculate(Dictionary<string, string> variables = null);
+
+        public abstract void Accept(FormulaVisitor v);
     }
 
-    //наша главная формула
-    public class Formula : Component
+    // Константа
+    public class Const : Formula
     {
-        //инициализация формулы константой
-        public void InitWithConst(string c)
+        private string val;
+
+        public string Value
         {
-            if (operations.Count == 0)
+            get { return val; }
+            set
             {
-                Operation init = new Operation();
-                init.consts.Add(c);
-                init.typename = "const";
-                operations.Add(init);
+                if (value == null)
+                    throw new ArgumentNullException();
+                val = value;
             }
-        }
-        //инициализация формулы переменной
-        public void InitWithVar(string var)
-        {
-            if (operations.Count == 0)
-            {
-                Operation init = new Operation();
-                init.consts.Add(var);
-                init.typename = "var";
-                operations.Add(init);
-            }
-        }
-        public override void AddOperation(Operation operation)
-        {
-            //не делать ничего, вся работа будет в AddOperation у декоратора конкретной операции
         }
 
-        public string Calculate()
+        public Const(string c)
         {
-            //todo
-            //для каждой из операций будет вызываться функция Calculate из соответствующего декоратора
-            //кроме первой(которая задается инициализаций const или var)
-            return "";
+            Value = c;
+        }
+
+        public override void Accept(FormulaVisitor v)
+        { }
+
+        public override string Calculate(Dictionary<string, string> variables = null)
+        {
+            return Value;
+        }
+    }
+
+    // Переменная
+    public class Var : Formula
+    {
+        private string val;
+
+        public string Value
+        {
+            get { return val; }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException();
+                val = value;
+            }
+        }
+
+        public Var(string v)
+        {
+            Value = v;
+        }
+
+        public override void Accept(FormulaVisitor v)
+        { }
+
+        public override string Calculate(Dictionary<string, string> variables)
+        {
+            if (variables != null && variables.ContainsKey(Value))
+                return variables[Value];
+            else
+                throw new ApplicationException("Uninitialized variable");
         }
     }
 }

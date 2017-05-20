@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface", "Interface\Interface.csproj", "{5A76A956-15C4-4AF0-B70B-0DB48E36148F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTestProject1\UnitTestProject1.csproj", "{DBA59B6C-0DA6-43C6-9BFF-406D495AB318}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharsFrequency", "CharsFrequency\CharsFrequency.csproj", "{CEFE9A2F-D970-4F51-859C-3DB1762DD909}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{5A76A956-15C4-4AF0-B70B-0DB48E36148F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A76A956-15C4-4AF0-B70B-0DB48E36148F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A76A956-15C4-4AF0-B70B-0DB48E36148F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBA59B6C-0DA6-43C6-9BFF-406D495AB318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBA59B6C-0DA6-43C6-9BFF-406D495AB318}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBA59B6C-0DA6-43C6-9BFF-406D495AB318}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBA59B6C-0DA6-43C6-9BFF-406D495AB318}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEFE9A2F-D970-4F51-859C-3DB1762DD909}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEFE9A2F-D970-4F51-859C-3DB1762DD909}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEFE9A2F-D970-4F51-859C-3DB1762DD909}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEFE9A2F-D970-4F51-859C-3DB1762DD909}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

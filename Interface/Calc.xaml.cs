@@ -39,8 +39,32 @@ namespace Interface
             Hide();
         }
 
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            calculate.IsEnabled = false;
+            bool b = true;
+            foreach (var child in variables.Children)
+            {
+                if (child is StackPanel)
+                {
+                    foreach (var c in (child as StackPanel).Children)
+                    {
+                        if (c is TextBox)
+                        {
+                            if ((c as TextBox).Text == "" || (c as TextBox).Text == null)
+                                b = false;
+                        }
+                    }
+                }
+                        
+            }
+            if(b)
+                calculate.IsEnabled = true;
+        }
+
         private void Window_Activated(object sender, EventArgs e)
         {
+            calculate.IsEnabled = false;
             variables.Children.Clear();
             var var_dict = (Owner as MainWindow).var_dict;
             //ListBox lb = new ListBox();
@@ -56,15 +80,11 @@ namespace Interface
                 tb.Name = "textbox_" + v;
                 tb.Width = 70;
                 tb.Margin = new Thickness(5);
+                tb.TextChanged += TextBox_TextChanged;
                 sp.Children.Add(l);
                 sp.Children.Add(tb);
                 variables.Children.Add(sp);
-                //variables.Children.Add();
             }
-            //variables.Children.Add(lb);
-            //variables.Children.Add(lb);
-            //variables.ScrollOwner = scroll;
-            //variables.Children.Add(lb);
         }
     }
 }

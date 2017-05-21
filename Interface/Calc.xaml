@@ -17,7 +17,7 @@
                 <StackPanel x:Name="variables" Orientation="Vertical" Width="100">
                 </StackPanel>
             </ScrollViewer>
-            <Button x:Name="calculate" Margin="5" Click="calculate_Click">Calculate!</Button>
+            <Button x:Name="calculate" Margin="5" Click="calculate_Click" IsEnabled="False">Calculate!</Button>
         </StackPanel>
     </Grid>
 </Window>

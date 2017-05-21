@@ -24,26 +24,9 @@ namespace Interface
 
         private Calc calculate_window = new Calc();
 
-        //
-        // вспомогательные функции
-        //
-        //
+        private Variables var_window = new Variables();
 
-        public bool IsValidVar(string var)
-        {
-            if (var == null || var == "")
-                return false;
-            if (var_dict != null)
-            {
-                foreach (string key in var_dict.Keys)
-                    if (var == key)
-                        return false;
-            }
-            if (var.Contains(" ") || var.Length > 3)
-                return false;
-            return true;
-        }
-
+      
         //
         //
         // конструкторы и загрузчики
@@ -58,6 +41,7 @@ namespace Interface
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             calculate_window.Owner = this;
+            var_window.Owner = this;
         }
 
         //
@@ -76,49 +60,7 @@ namespace Interface
 
         }
 
-        //
-        //
-        // кнопки для работы со списком переменных
-        //
-        //
-
-        private void Add_Click(object sender, RoutedEventArgs e)
-        {
-            string var = new_var.Text;
-            if(!IsValidVar(var))
-            {
-                MessageBox.Show("Not valid variable name!");
-                return;
-            }
-            var_dict.Add(var, "");
-            variables.Items.Add(var); 
-        }
-
-        private void Del_Click(object sender, RoutedEventArgs e)
-        {
-            string elem = (string)variables.SelectedItem;
-            if (elem != null)
-            {
-                var_dict.Remove(elem);
-                variables.Items.Remove(elem);
-            }
-            else
-            {
-                elem = new_var.Text;
-                if (var_dict.ContainsKey(elem))
-                {
-                    var_dict.Remove(elem);
-                    variables.Items.Remove(elem);
-                }
-
-            }
-        }
-
-        private void Clear_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+       
 
         //
         //
@@ -133,12 +75,17 @@ namespace Interface
 
         private void del_last_Click(object sender, RoutedEventArgs e)
         {
-
+            //todo
         }
 
         private void clear_formula_Click(object sender, RoutedEventArgs e)
         {
+            //todo
+        }
 
+        private void change_variables_Click(object sender, RoutedEventArgs e)
+        {
+            var_window.ShowDialog();
         }
 
         //
@@ -213,5 +160,6 @@ namespace Interface
         {
 
         }
+
     }
 }

@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Interface"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" Background="#FF08BF96" ResizeMode="CanMinimize" Loaded="Window_Loaded">
+        Title="MainWindow" Height="350" Width="420" Background="#FF08BF96" ResizeMode="CanMinimize" Loaded="Window_Loaded">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" ></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0" Grid.Column ="0" Margin="5" FontStyle="Italic" Background="#FF08BF96">
@@ -23,163 +23,152 @@
 
         <Grid Grid.Row="1" Margin="5">
             <StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="5">
-                    <Label Content="0" Background="White" Width="530" Margin="2"></Label>
-                    <Button x:Name="calculate" Content="Calculate" Width="70" Margin="2" Click="calculate_Click"></Button>
-                    <Button x:Name="del_last" Content="Delete Last" Width="70" Margin="2" Click="del_last_Click"></Button>
-                    <Button x:Name="clear_formula" Content="Clear" Width="70" Margin="2" Click="clear_formula_Click"></Button>
-                </StackPanel>
                 <Grid Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition ></ColumnDefinition>
-                        <ColumnDefinition ></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <TabControl Grid.Column="0">
-                        <TabControl.Resources>
-                            <Style TargetType="TabItem">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="TabItem">
-                                            <Grid Name="Panel">
-                                                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="10,2"/>
-                                            </Grid>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsSelected" Value="True">
-                                                    <Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
-                                                </Trigger>
-                                                <Trigger Property="IsSelected" Value="False">
-                                                    <Setter TargetName="Panel" Property="Background" Value="White" />
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </TabControl.Resources>
-
-                        <TabItem x:Name="init" Header="Init" Width="50">
-                            <StackPanel Margin="5" Width="200">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Const"></Label>
-                                    <TextBox Width="70" Margin="5"></TextBox>
-                                    <Button x:Name="init_with_const" Content="Init" Width="50" Margin="5" Click="init_with_const_Click"></Button>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Variable"></Label>
-                                    <TextBox Width="70" Margin="5"></TextBox>
-                                    <Button x:Name="init_with_var" Content="Init" Width="50" Margin="5" Click="init_with_var_Click"></Button>
-                                </StackPanel>
+                    <StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="0" Background="White" Width="364"></Label>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                                <Button x:Name="calculate" Content="Calculate" Width="60" Margin="2" Click="calculate_Click"></Button>
+                                <Button x:Name="del_last" Content="Delete Last" Width="70" Margin="2" Click="del_last_Click"></Button>
+                                <Button x:Name="clear_formula" Content="Clear" Width="70" Margin="2"  Click="clear_formula_Click"></Button>
                             </StackPanel>
-                        </TabItem>
-                        <TabItem x:Name="removesp" Header="^" Width="50">
-                            <Button x:Name="remove_spaces" Content="Add" Width="50" Height="18" Margin="5" Click="remove_spaces_Click"></Button>
-                        </TabItem>
-                        <TabItem x:Name="concat" Header="&amp;&amp;" Width="50">
-                            <StackPanel Margin="5" Width="200">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Const"></Label>
-                                    <TextBox Width="70" Margin="5"></TextBox>
-                                    <Button x:Name="concat_with_const" Content="Concat" Width="50" Margin="5" Click="concat_with_const_Click"></Button>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Variable"></Label>
-                                    <TextBox Width="70" Margin="5"></TextBox>
-                                    <Button x:Name="concat_with_var" Content="Concat" Width="50" Margin="5" Click="concat_with_var_Click"></Button>
-                                </StackPanel>
-                            </StackPanel>
-                        </TabItem>
-                        <TabItem x:Name="repsym" Header="#" Width="50">
-                            <StackPanel Margin="5" Width="200">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Char"></Label>
-                                    <TextBox Width="70" Margin="5"></TextBox>
-                                    <Button x:Name="replace_symbol" Content="Replace" Width="50" Margin="5" Click="replace_symbol_Click"></Button>
-                                </StackPanel>
-                            </StackPanel>
-                        </TabItem>
-                        <TabItem x:Name="repsubstr" Header="@" Width="50">
-                            <StackPanel Orientation="Horizontal">
-
-                                <StackPanel Orientation="Vertical">
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <Label Content="Const"></Label>
-                                        <TextBox Width="70" Margin="5"></TextBox>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <Label Content="Const"></Label>
-                                        <TextBox Width="70" Margin="5"></TextBox>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Label Content="Variable"></Label>
-                                        <TextBox Width="70" Margin="5"></TextBox>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Label Content="Variable"></Label>
-                                        <TextBox Width="70" Margin="5"></TextBox>
-                                    </StackPanel>
-                                </StackPanel>
-
-                                <StackPanel Orientation="Vertical">
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <Label Content="Const"></Label>
-                                        <TextBox Width="70" Margin="5"></TextBox>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Label Content="Variable"></Label>
-                                        <TextBox Width="70" Margin="5"></TextBox>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <Label Content="Const"></Label>
-                                        <TextBox Width="70" Margin="5"></TextBox>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Label Content="Variable"></Label>
-                                        <TextBox Width="70" Margin="5"></TextBox>
-                                    </StackPanel>
-                                </StackPanel>
-
-                                <StackPanel Orientation="Vertical">
-                                    <Button x:Name="replace_substr_const_const" Content="Replace" Width="50" Height="18" Margin="5" Click="replace_substr_const_const_Click"></Button>
-                                    <Button x:Name="replace_substr_const_var" Content="Replace" Width="50" Height="18" Margin="5" Click="replace_substr_const_var_Click"></Button>
-                                    <Button x:Name="replace_substr_var_const" Content="Replace" Width="50" Height="18" Margin="5" Click="replace_substr_var_const_Click"></Button>
-                                    <Button x:Name="replace_substr_var_var" Content="Replace" Width="50" Height="18" Margin="5" Click="replace_substr_var_var_Click"></Button>
-                                </StackPanel>
-
-                            </StackPanel>
-                        </TabItem>
-                        <TabItem x:Name="removesymb" Header="!" Width="50">
-                            <StackPanel Margin="5" Width="200">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Label Content="Const"></Label>
-                                    <TextBox Width="70" Margin="5"></TextBox>
-                                    <Button x:Name="remove_symbol" Content="Remove" Width="50" Margin="5" Click="remove_symbol_Click"></Button>
-                                </StackPanel>
-                            </StackPanel>
-                        </TabItem>
-                        <TabItem x:Name="brackets" Header="( )" Width="50">
-                            <Button x:Name="add_brackets" Content="Add" Width="50" Height="18" Margin="5" Click="add_brackets_Click"></Button>
-                        </TabItem>
-                    </TabControl>
-                    <StackPanel Grid.Column="1" HorizontalAlignment="Center">
-                        <Label Content="Variables" HorizontalAlignment="Center"></Label>
-                        <ListBox x:Name="variables"></ListBox>
-                        <StackPanel Orientation="Vertical" Margin="5">
-                            <StackPanel Orientation="Horizontal" Margin="1">
-                                <TextBox x:Name="new_var" Width="70" ></TextBox>
-                                <Button Content="Add" Width="35" Click="Add_Click"></Button>
-                                <Button Content="Del" Width="35" Click="Del_Click"></Button>
-                            </StackPanel>
-                            <Button Content="Clear" Margin="1" Click="Clear_Click"></Button>
                         </StackPanel>
+                        <TabControl Margin="10">
+                            <TabControl.Resources>
+                                <Style TargetType="TabItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="TabItem">
+                                                <Grid Name="Panel">
+                                                    <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="10,2"/>
+                                                </Grid>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsSelected" Value="False">
+                                                        <Setter TargetName="Panel" Property="Background" Value="White" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </TabControl.Resources>
+
+                            <TabItem x:Name="init" Header="Init" Width="50">
+                                <StackPanel Margin="5" Width="200">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Label Content="Const"></Label>
+                                        <TextBox Width="70" Margin="5"></TextBox>
+                                        <Button x:Name="init_with_const" Content="Init" Width="50" Margin="5" Click="init_with_const_Click"></Button>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Label Content="Variable"></Label>
+                                        <TextBox Width="70" Margin="5"></TextBox>
+                                        <Button x:Name="init_with_var" Content="Init" Width="50" Margin="5" Click="init_with_var_Click"></Button>
+                                    </StackPanel>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem x:Name="removesp" Header="^" Width="50">
+                                <Button x:Name="remove_spaces" Content="Add" Width="50" Height="18" Margin="5" Click="remove_spaces_Click"></Button>
+                            </TabItem>
+                            <TabItem x:Name="concat" Header="&amp;&amp;" Width="50">
+                                <StackPanel Margin="5" Width="200">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Label Content="Const"></Label>
+                                        <TextBox Width="70" Margin="5"></TextBox>
+                                        <Button x:Name="concat_with_const" Content="Concat" Width="50" Margin="5" Click="concat_with_const_Click"></Button>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Label Content="Variable"></Label>
+                                        <TextBox Width="70" Margin="5"></TextBox>
+                                        <Button x:Name="concat_with_var" Content="Concat" Width="50" Margin="5" Click="concat_with_var_Click"></Button>
+                                    </StackPanel>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem x:Name="repsym" Header="#" Width="50">
+                                <StackPanel Margin="5" Width="200">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Label Content="Char"></Label>
+                                        <TextBox Width="70" Margin="5"></TextBox>
+                                        <Button x:Name="replace_symbol" Content="Replace" Width="50" Margin="5" Click="replace_symbol_Click"></Button>
+                                    </StackPanel>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem x:Name="repsubstr" Header="@" Width="50">
+                                <StackPanel Orientation="Horizontal">
+
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <Label Content="Const"></Label>
+                                            <TextBox Width="70" Margin="5"></TextBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <Label Content="Const"></Label>
+                                            <TextBox Width="70" Margin="5"></TextBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Variable"></Label>
+                                            <TextBox Width="70" Margin="5"></TextBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Variable"></Label>
+                                            <TextBox Width="70" Margin="5"></TextBox>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <Label Content="Const"></Label>
+                                            <TextBox Width="70" Margin="5"></TextBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Variable"></Label>
+                                            <TextBox Width="70" Margin="5"></TextBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                            <Label Content="Const"></Label>
+                                            <TextBox Width="70" Margin="5"></TextBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Variable"></Label>
+                                            <TextBox Width="70" Margin="5"></TextBox>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Vertical">
+                                        <Button x:Name="replace_substr_const_const" Content="Replace" Width="50" Height="18" Margin="5" Click="replace_substr_const_const_Click"></Button>
+                                        <Button x:Name="replace_substr_const_var" Content="Replace" Width="50" Height="18" Margin="5" Click="replace_substr_const_var_Click"></Button>
+                                        <Button x:Name="replace_substr_var_const" Content="Replace" Width="50" Height="18" Margin="5" Click="replace_substr_var_const_Click"></Button>
+                                        <Button x:Name="replace_substr_var_var" Content="Replace" Width="50" Height="18" Margin="5" Click="replace_substr_var_var_Click"></Button>
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem x:Name="removesymb" Header="!" Width="50">
+                                <StackPanel Margin="5" Width="200">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Label Content="Const"></Label>
+                                        <TextBox Width="70" Margin="5"></TextBox>
+                                        <Button x:Name="remove_symbol" Content="Remove" Width="50" Margin="5" Click="remove_symbol_Click"></Button>
+                                    </StackPanel>
+                                </StackPanel>
+                            </TabItem>
+                            <TabItem x:Name="brackets" Header="( )" Width="50">
+                                <Button x:Name="add_brackets" Content="Add" Width="50" Height="18" Margin="5" Click="add_brackets_Click"></Button>
+                            </TabItem>
+                        </TabControl>
                     </StackPanel>
                 </Grid>
             </StackPanel>
         </Grid>
         <StackPanel Grid.Row="2" Margin="5">
-            <Label Content="Log"></Label>
-            <ScrollViewer x:Name="scviewer" VerticalScrollBarVisibility="Auto" Height="230">
-                <TextBlock x:Name="log" Text="Welcome to Calc!" Background="White" FontStyle="Italic" FontSize="15" Foreground="Black"/>
-            </ScrollViewer>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <Button x:Name="change_variables" Content="Change Variables" Width="100" Margin="2" Click="change_variables_Click"></Button>
+               
+               
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

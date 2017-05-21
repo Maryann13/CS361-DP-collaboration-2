@@ -26,7 +26,17 @@ namespace Interface
 
         private void calculate_Click(object sender, RoutedEventArgs e)
         {
+            /*var vars = (Owner as MainWindow).variables.Items;
+            var listbox = new ListBox(); 
+            foreach (var v in vars)
+                listbox.Items.Add(v);
+            variables.Children.Add(listbox);*/
+        }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
         }
     }
 }

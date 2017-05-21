@@ -38,5 +38,33 @@ namespace Interface
             e.Cancel = true;
             Hide();
         }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            variables.Children.Clear();
+            var var_dict = (Owner as MainWindow).var_dict;
+            //ListBox lb = new ListBox();
+            foreach (var v in var_dict.Keys)
+            {
+                StackPanel sp = new StackPanel();
+                sp.Orientation = Orientation.Horizontal;
+                sp.HorizontalAlignment = HorizontalAlignment.Right;
+                Label l = new Label();
+                l.Content = v;
+                l.Margin = new Thickness(5);
+                TextBox tb = new TextBox();
+                tb.Name = "textbox_" + v;
+                tb.Width = 70;
+                tb.Margin = new Thickness(5);
+                sp.Children.Add(l);
+                sp.Children.Add(tb);
+                variables.Children.Add(sp);
+                //variables.Children.Add();
+            }
+            //variables.Children.Add(lb);
+            //variables.Children.Add(lb);
+            //variables.ScrollOwner = scroll;
+            //variables.Children.Add(lb);
+        }
     }
 }

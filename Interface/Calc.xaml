@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Interface"
         mc:Ignorable="d"
-        Title="Calc" Height="200" Width="300" ResizeMode="CanMinimize" Closing="Window_Closing">
+        Title="Calc" Height="300" Width="300" Background="#FF08BF96" ResizeMode="CanMinimize" Closing="Window_Closing" Activated="Window_Activated">
     <Grid Margin="5">
         <StackPanel Orientation="Vertical">
             <Label>Formula:</Label>
@@ -13,10 +13,11 @@
             <Label>Result:</Label>
             <TextBlock x:Name="result"></TextBlock>
             <Label>Variables:</Label>
-            <StackPanel x:Name="variables" Orientation="Vertical">
-                
-            </StackPanel>
-            <Button x:Name="calculate" Click="calculate_Click">Calculate!</Button>
+            <ScrollViewer x:Name="scroll" VerticalScrollBarVisibility="Auto" Height="100">
+                <StackPanel x:Name="variables" Orientation="Vertical" Width="100">
+                </StackPanel>
+            </ScrollViewer>
+            <Button x:Name="calculate" Margin="5" Click="calculate_Click">Calculate!</Button>
         </StackPanel>
     </Grid>
 </Window>

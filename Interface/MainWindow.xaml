@@ -28,9 +28,9 @@
                         <StackPanel Orientation="Vertical">
                             <Label Content="0" Background="White" Width="364"></Label>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
-                                <Button x:Name="calculate" Content="Calculate" Width="60" Margin="2" Click="calculate_Click"></Button>
-                                <Button x:Name="del_last" Content="Delete Last" Width="70" Margin="2" Click="del_last_Click"></Button>
-                                <Button x:Name="clear_formula" Content="Clear" Width="70" Margin="2"  Click="clear_formula_Click"></Button>
+                                <Button x:Name="calculate" Content="Calculate" IsEnabled="False" Width="60" Margin="2" Click="calculate_Click"></Button>
+                                <Button x:Name="del_last" Content="Delete Last" IsEnabled="False" Width="70" Margin="2" Click="del_last_Click"></Button>
+                                <Button x:Name="clear_formula" Content="Clear" IsEnabled="False" Width="70" Margin="2"  Click="clear_formula_Click"></Button>
                             </StackPanel>
                         </StackPanel>
                         <TabControl Margin="10">
@@ -70,10 +70,10 @@
                                     </StackPanel>
                                 </StackPanel>
                             </TabItem>
-                            <TabItem x:Name="removesp" Header="^" Width="50">
+                            <TabItem x:Name="removesp" Header="^" Width="50" IsEnabled="False">
                                 <Button x:Name="remove_spaces" Content="Add" Width="50" Height="18" Margin="5" Click="remove_spaces_Click"></Button>
                             </TabItem>
-                            <TabItem x:Name="concat" Header="&amp;&amp;" Width="50">
+                            <TabItem x:Name="concat" Header="&amp;&amp;" Width="50" IsEnabled="False">
                                 <StackPanel Margin="5" Width="200">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Const"></Label>
@@ -87,7 +87,7 @@
                                     </StackPanel>
                                 </StackPanel>
                             </TabItem>
-                            <TabItem x:Name="repsym" Header="#" Width="50">
+                            <TabItem x:Name="repsym" Header="#" Width="50" IsEnabled="False">
                                 <StackPanel Margin="5" Width="200">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Char"></Label>
@@ -96,7 +96,7 @@
                                     </StackPanel>
                                 </StackPanel>
                             </TabItem>
-                            <TabItem x:Name="repsubstr" Header="@" Width="50">
+                            <TabItem x:Name="repsubstr" Header="@" Width="50" IsEnabled="False">
                                 <StackPanel Orientation="Horizontal">
 
                                     <StackPanel Orientation="Vertical">
@@ -146,7 +146,7 @@
 
                                 </StackPanel>
                             </TabItem>
-                            <TabItem x:Name="removesymb" Header="!" Width="50">
+                            <TabItem x:Name="removesymb" Header="!" Width="50" IsEnabled="False">
                                 <StackPanel Margin="5" Width="200">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Const"></Label>
@@ -155,7 +155,7 @@
                                     </StackPanel>
                                 </StackPanel>
                             </TabItem>
-                            <TabItem x:Name="brackets" Header="( )" Width="50">
+                            <TabItem x:Name="brackets" Header="( )" Width="50" IsEnabled="False">
                                 <Button x:Name="add_brackets" Content="Add" Width="50" Height="18" Margin="5" Click="add_brackets_Click"></Button>
                             </TabItem>
                         </TabControl>

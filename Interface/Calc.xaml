@@ -14,7 +14,7 @@
             <TextBlock x:Name="result"></TextBlock>
             <Label>Variables:</Label>
             <ScrollViewer x:Name="scroll" VerticalScrollBarVisibility="Auto" Height="100">
-                <StackPanel x:Name="variables" Orientation="Vertical" Width="100">
+                <StackPanel x:Name="variables" Orientation="Vertical" Width="110">
                 </StackPanel>
             </ScrollViewer>
             <Button x:Name="calculate" Margin="5" Click="calculate_Click" IsEnabled="False">Calculate!</Button>

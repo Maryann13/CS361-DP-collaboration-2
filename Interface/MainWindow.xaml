@@ -33,7 +33,7 @@
                                 <Button x:Name="clear_formula" Content="Clear" IsEnabled="False" Width="70" Margin="2"  Click="clear_formula_Click"></Button>
                             </StackPanel>
                         </StackPanel>
-                        <TabControl Margin="10">
+                        <TabControl x:Name="operations" Margin="10">
                             <TabControl.Resources>
                                 <Style TargetType="TabItem">
                                     <Setter Property="Template">

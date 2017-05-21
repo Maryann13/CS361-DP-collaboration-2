@@ -80,6 +80,22 @@ namespace Interface
 
         private void clear_formula_Click(object sender, RoutedEventArgs e)
         {
+            foreach (var item in operations.Items)
+            {
+                if (item is TabItem)
+                {
+                    if ((item as TabItem).Name != "init")
+                    {
+                        (item as TabItem).IsEnabled = false;
+                    }
+                    else
+                        (item as TabItem).IsEnabled = true;
+                }
+            }
+            operations.SelectedItem = init;
+            calculate.IsEnabled = false;
+            del_last.IsEnabled = false;
+            clear_formula.IsEnabled = false;
             //todo
         }
 
@@ -97,12 +113,44 @@ namespace Interface
         // init
         private void init_with_const_Click(object sender, RoutedEventArgs e)
         {
-
+            foreach(var item in operations.Items)
+            { 
+                if (item is TabItem)
+                {
+                    if ((item as TabItem).Name == "init")
+                    {
+                        (item as TabItem).IsEnabled = false;
+                        operations.SelectedItem = removesp;
+                    }
+                    else
+                        (item as TabItem).IsEnabled = true;
+                }
+            }
+            calculate.IsEnabled = true;
+            del_last.IsEnabled = true;
+            clear_formula.IsEnabled = true;
+            //todo
         }
 
         private void init_with_var_Click(object sender, RoutedEventArgs e)
         {
-
+            foreach (var item in operations.Items)
+            {
+                if (item is TabItem)
+                {
+                    if ((item as TabItem).Name == "init")
+                    {
+                        (item as TabItem).IsEnabled = false;
+                        operations.SelectedItem = removesp;
+                    }
+                    else
+                        (item as TabItem).IsEnabled = true;
+                }
+            }
+            calculate.IsEnabled = true;
+            del_last.IsEnabled = true;
+            clear_formula.IsEnabled = true;
+            //todo
         }
 
         // remove spaces

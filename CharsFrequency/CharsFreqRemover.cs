@@ -10,8 +10,8 @@ namespace CharsFrequency
     {
         private bool emptySrc;
 
-        public char Freq { get; }
-        public char Rare { get; }
+        public char Freq { get; set; }
+        public char Rare { get; set; }
 
         public CharsFreqRemover(string source)
         {

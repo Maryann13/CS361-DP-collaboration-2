@@ -17,8 +17,9 @@ namespace Core
     // Визитор на замену подстрок в формуле
     public class ReplaceFormulaVisitor : FormulaVisitor
     {
-        public ConstVar Substring { get; }
-        public ConstVar Replacement { get; }
+
+        public ConstVar Substring { get; set; }
+        public ConstVar Replacement { get; set; }
 
         public ReplaceFormulaVisitor(ConstVar source, ConstVar dest)
         {

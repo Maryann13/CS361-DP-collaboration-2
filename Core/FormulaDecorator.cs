@@ -85,7 +85,7 @@ namespace Core
     // Конкатенация строк. F && c и F && v
     public class ConcatDecorator : FormulaDecorator
     {
-        public ConstVar ConcatValue { get; }
+        public ConstVar ConcatValue { get; set; }
         
         public ConcatDecorator(Const value)
         {
@@ -111,11 +111,18 @@ namespace Core
     // Замена в строке F пробельных символов на символ a. F # a
     public class ReplaceSpaceDecorator : FormulaDecorator
     {
-        public char Symbol { get; }
+        private char symbol;
+        public char Symbol
+        {
+            get
+            {
+                return symbol;
+            }
+        }
 
         public ReplaceSpaceDecorator(char symb)
         {
-            Symbol = symb;
+            symbol = symb;
         }
 
         public override string Calculate(Dictionary<string, string> variables = null)

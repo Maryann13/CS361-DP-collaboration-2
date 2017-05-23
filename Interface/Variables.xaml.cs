@@ -41,7 +41,7 @@ namespace Interface
                     if (var == key)
                         return false;
             }
-            if (var.Contains(" ") || var.Length > 3)
+            if (var.Contains(" "))
                 return false;
             return true;
         }
@@ -65,6 +65,7 @@ namespace Interface
             var_dict.Add(var, "");
             variables.Items.Add(var);
             (Owner as MainWindow).var_dict = var_dict;
+            new_var.Text = "";
         }
 
         private void Del_Click(object sender, RoutedEventArgs e)
@@ -87,19 +88,16 @@ namespace Interface
 
             }
             (Owner as MainWindow).var_dict = var_dict;
-            //todo: удалить, только если эта переменная не задействована в формуле
         }
 
         private void Clear_Click(object sender, RoutedEventArgs e)
         {
             variables.Items.Clear();
             (Owner as MainWindow).var_dict.Clear();
-            //todo: очистить, только если ни одна переменная не задействована в формуле
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
             e.Cancel = true;
             Hide();
         }

@@ -13,20 +13,12 @@
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0" Grid.Column ="0" Margin="5" FontStyle="Italic" Background="#FF08BF96">
-            <MenuItem Header="Commands">
-                <MenuItem Header="Test" Click="MenuItem_Click"/>
-                <Separator />
-                <MenuItem Header="Exit" Click="MenuItem_Click_1"/>
-            </MenuItem>
-        </Menu>
-
         <Grid Grid.Row="1" Margin="5">
             <StackPanel>
                 <Grid Margin="5">
                     <StackPanel>
                         <StackPanel Orientation="Vertical">
-                            <Label Content="0" Background="White" Width="364"></Label>
+                            <Label x:Name="formula_text" Content="" Background="White" Width="364"></Label>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
                                 <Button x:Name="calculate" Content="Calculate" IsEnabled="False" Width="60" Margin="2" Click="calculate_Click"></Button>
                                 <Button x:Name="del_last" Content="Delete Last" IsEnabled="False" Width="70" Margin="2" Click="del_last_Click"></Button>
@@ -60,12 +52,12 @@
                                 <StackPanel Margin="5" Width="200">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Const"></Label>
-                                        <TextBox Width="70" Margin="5"></TextBox>
+                                        <TextBox x:Name="init_const" Width="70" Margin="5"></TextBox>
                                         <Button x:Name="init_with_const" Content="Init" Width="50" Margin="5" Click="init_with_const_Click"></Button>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Variable"></Label>
-                                        <TextBox Width="70" Margin="5"></TextBox>
+                                        <TextBox x:Name="init_var" Width="70" Margin="5"></TextBox>
                                         <Button x:Name="init_with_var" Content="Init" Width="50" Margin="5" Click="init_with_var_Click"></Button>
                                     </StackPanel>
                                 </StackPanel>
@@ -77,12 +69,12 @@
                                 <StackPanel Margin="5" Width="200">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Const"></Label>
-                                        <TextBox Width="70" Margin="5"></TextBox>
+                                        <TextBox x:Name="concat_const" Width="70" Margin="5"></TextBox>
                                         <Button x:Name="concat_with_const" Content="Concat" Width="50" Margin="5" Click="concat_with_const_Click"></Button>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Variable"></Label>
-                                        <TextBox Width="70" Margin="5"></TextBox>
+                                        <TextBox x:Name="concat_var" Width="70" Margin="5"></TextBox>
                                         <Button x:Name="concat_with_var" Content="Concat" Width="50" Margin="5" Click="concat_with_var_Click"></Button>
                                     </StackPanel>
                                 </StackPanel>
@@ -91,7 +83,7 @@
                                 <StackPanel Margin="5" Width="200">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Char"></Label>
-                                        <TextBox Width="70" Margin="5"></TextBox>
+                                        <TextBox x:Name="replace_symb" PreviewTextInput="replace_symb_PreviewTextInput" Width="70" Margin="5"></TextBox>
                                         <Button x:Name="replace_symbol" Content="Replace" Width="50" Margin="5" Click="replace_symbol_Click"></Button>
                                     </StackPanel>
                                 </StackPanel>
@@ -102,38 +94,38 @@
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                             <Label Content="Const"></Label>
-                                            <TextBox Width="70" Margin="5"></TextBox>
+                                            <TextBox x:Name="cc_1" Width="70" Margin="5"></TextBox>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                             <Label Content="Const"></Label>
-                                            <TextBox Width="70" Margin="5"></TextBox>
+                                            <TextBox x:Name="cv_1"  Width="70" Margin="5"></TextBox>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <Label Content="Variable"></Label>
-                                            <TextBox Width="70" Margin="5"></TextBox>
+                                            <TextBox x:Name="vc_1"  Width="70" Margin="5"></TextBox>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <Label Content="Variable"></Label>
-                                            <TextBox Width="70" Margin="5"></TextBox>
+                                            <TextBox x:Name="vv_1"  Width="70" Margin="5"></TextBox>
                                         </StackPanel>
                                     </StackPanel>
 
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                             <Label Content="Const"></Label>
-                                            <TextBox Width="70" Margin="5"></TextBox>
+                                            <TextBox x:Name="cc_2" Width="70" Margin="5"></TextBox>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <Label Content="Variable"></Label>
-                                            <TextBox Width="70" Margin="5"></TextBox>
+                                            <TextBox x:Name="cv_2"  Width="70" Margin="5"></TextBox>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                             <Label Content="Const"></Label>
-                                            <TextBox Width="70" Margin="5"></TextBox>
+                                            <TextBox x:Name="vc_2"  Width="70" Margin="5"></TextBox>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <Label Content="Variable"></Label>
-                                            <TextBox Width="70" Margin="5"></TextBox>
+                                            <TextBox x:Name="vv_2"  Width="70" Margin="5"></TextBox>
                                         </StackPanel>
                                     </StackPanel>
 
@@ -150,7 +142,7 @@
                                 <StackPanel Margin="5" Width="200">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Label Content="Const"></Label>
-                                        <TextBox Width="70" Margin="5"></TextBox>
+                                        <TextBox x:Name="remove_symb" Width="70" Margin="5"></TextBox>
                                         <Button x:Name="remove_symbol" Content="Remove" Width="50" Margin="5" Click="remove_symbol_Click"></Button>
                                     </StackPanel>
                                 </StackPanel>

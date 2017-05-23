@@ -10,6 +10,8 @@ namespace Core
     // Интерфейс визитора для формулы
     public interface FormulaVisitor
     {
+        bool ToLeave { get; set; }
+
         void Visit(FormulaDecorator formula);
         void Visit(ConcatDecorator formula);
     }
@@ -17,9 +19,10 @@ namespace Core
     // Визитор на замену подстрок в формуле
     public class ReplaceFormulaVisitor : FormulaVisitor
     {
-
         public ConstVar Substring { get; set; }
         public ConstVar Replacement { get; set; }
+
+        public bool ToLeave { get; set; }
 
         public ReplaceFormulaVisitor(ConstVar source, ConstVar dest)
         {
@@ -27,6 +30,7 @@ namespace Core
                 throw new ArgumentNullException();
             Substring = source;
             Replacement = dest;
+            ToLeave = false;
         }
 
         public void Visit(FormulaDecorator f)
@@ -41,7 +45,8 @@ namespace Core
             {
                 if (Substring.IsConst && Replacement.IsConst || f.ConcatValue.Value == Substring.Value)
                 {
-                    f.ConcatValue.Value.Replace(Substring.Value, Replacement.Value);
+                    f.ConcatValue.Value
+                        = f.ConcatValue.Value.Replace(Substring.Value, Replacement.Value);
                     f.ConcatValue.IsConst = Replacement.IsConst;
                 }
                 else if (Substring.IsConst)
@@ -55,7 +60,8 @@ namespace Core
             {
                 if (Substring.IsVar && (f.Subformula as Var).Value == Substring.Value)
                 {
-                    (f.Subformula as Var).Value.Replace(Substring.Value, Replacement.Value);
+                    (f.Subformula as Var).Value
+                        = (f.Subformula as Var).Value.Replace(Substring.Value, Replacement.Value);
                     if (Replacement.IsConst)
                     {
                         var fConst = new Const((f.Subformula as Var).Value);
@@ -68,7 +74,8 @@ namespace Core
                 if (Substring.IsConst && (Replacement.IsConst ||
                     (f.Subformula as Const).Value == Substring.Value))
                 {
-                    (f.Subformula as Const).Value.Replace(Substring.Value, Replacement.Value);
+                    (f.Subformula as Const).Value
+                        = (f.Subformula as Const).Value.Replace(Substring.Value, Replacement.Value);
                     if (Replacement.IsVar)
                     {
                         var fVar = new Var((f.Subformula as Const).Value);
@@ -76,7 +83,11 @@ namespace Core
                     }
                 }
                 else if (Substring.IsConst && Replacement.IsVar)
-                    ReplaceEntries(f, (f.Subformula as Const).Value);
+                {
+                    string value = (f.Subformula as Const).Value;
+                    f.Subformula = new Const("");
+                    ReplaceEntries(f, value);
+                }
             }
         }
 
@@ -102,6 +113,7 @@ namespace Core
                     formula.Subformula = concatV;
                 }
             }
+            ToLeave = true;
         }
     }
 }

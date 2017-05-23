@@ -9,15 +9,15 @@
     <Grid Margin="5">
         <StackPanel Orientation="Vertical">
             <Label>Formula:</Label>
-            <TextBlock x:Name="formula"></TextBlock>
+            <TextBlock Margin="5,0" x:Name="formula"></TextBlock>
             <Label>Result:</Label>
-            <TextBlock x:Name="result"></TextBlock>
+            <TextBlock Margin="5,0" x:Name="result"></TextBlock>
             <Label>Variables:</Label>
             <ScrollViewer x:Name="scroll" VerticalScrollBarVisibility="Auto" Height="100">
                 <StackPanel x:Name="variables" Orientation="Vertical" Width="110">
                 </StackPanel>
             </ScrollViewer>
-            <Button x:Name="calculate" Margin="5" Click="calculate_Click" IsEnabled="False">Calculate!</Button>
+            <Button x:Name="calculate" Margin="5" Click="calculate_Click">Calculate!</Button>
         </StackPanel>
     </Grid>
 </Window>

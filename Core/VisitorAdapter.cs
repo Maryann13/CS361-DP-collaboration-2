@@ -11,6 +11,12 @@ namespace Core
     {
         private ReplaceFormulaVisitor rv;
 
+        public bool ToLeave
+        {
+            get { return rv.ToLeave; }
+            set { rv.ToLeave = value; }
+        }
+
         public ReplaceVisitorAdapter(Const source, Const dest)
         {
             rv = new ReplaceFormulaVisitor

@@ -31,6 +31,20 @@ namespace Interface
             foreach (var v in vars)
                 listbox.Items.Add(v);
             variables.Children.Add(listbox);*/
+
+            try
+            {
+                var f = (Owner as MainWindow).formula;
+
+                result.Text = (Owner as MainWindow).formula
+                    .Calculate((Owner as MainWindow).var_dict);
+                
+                (Owner as MainWindow).formula = f;
+            }
+            catch (ApplicationException exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -41,8 +55,8 @@ namespace Interface
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            calculate.IsEnabled = false;
-            bool b = true;
+            //calculate.IsEnabled = false;
+            //bool b = true;
             foreach (var child in variables.Children)
             {
                 if (child is StackPanel)
@@ -51,20 +65,25 @@ namespace Interface
                     {
                         if (c is TextBox)
                         {
-                            if ((c as TextBox).Text == "" || (c as TextBox).Text == null)
-                                b = false;
+                            //if ((c as TextBox).Text == "" || (c as TextBox).Text == null)
+                            //    b = false;
+                            (Owner as MainWindow).var_dict[(c as TextBox).Tag as string]
+                                = (c as TextBox).Text;
                         }
                     }
                 }
                         
             }
-            if(b)
-                calculate.IsEnabled = true;
+            //if(b)
+            //    calculate.IsEnabled = true;
         }
 
         private void Window_Activated(object sender, EventArgs e)
         {
-            calculate.IsEnabled = false;
+            formula.Text = (Owner as MainWindow).formula_text.Content as string;
+            result.Text = "";
+
+            //calculate.IsEnabled = false;
             variables.Children.Clear();
             var var_dict = (Owner as MainWindow).var_dict;
             //ListBox lb = new ListBox();
@@ -78,6 +97,7 @@ namespace Interface
                 l.Margin = new Thickness(5);
                 TextBox tb = new TextBox();
                 tb.Name = "textbox_" + v;
+                tb.Tag = v;
                 tb.Width = 70;
                 tb.Margin = new Thickness(5);
                 tb.TextChanged += TextBox_TextChanged;

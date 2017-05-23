@@ -30,13 +30,14 @@ namespace Core
 
         public override string Calculate(Dictionary<string, string> variables = null)
         {
-            return formula.Calculate();
+            return formula.Calculate(variables);
         }
 
         public override void Accept(FormulaVisitor v)
         {
             v.Visit(this);
-            formula.Accept(v);
+            if (!v.ToLeave)
+                formula.Accept(v);
         }
     }
 
@@ -48,6 +49,12 @@ namespace Core
         public string Value
         {
             get { return val; }
+            set
+            {
+                if (value == null)
+                    throw new ArgumentNullException();
+                val = value;
+            }
         }
 
         public bool IsConst { get; set; }
@@ -100,9 +107,9 @@ namespace Core
         public override string Calculate(Dictionary<string, string> variables = null)
         {
             if (ConcatValue.IsConst)
-                return Calculate() + ConcatValue;
+                return base.Calculate(variables) + ConcatValue.Value;
             else if (variables != null && variables.ContainsKey(ConcatValue.Value))
-                return Calculate() + variables[ConcatValue.Value];
+                return base.Calculate(variables) + variables[ConcatValue.Value];
             else
                 throw new ApplicationException("Uninitialized variable");
         }
@@ -127,7 +134,7 @@ namespace Core
 
         public override string Calculate(Dictionary<string, string> variables = null)
         {
-            return Calculate().Replace(' ', Symbol);
+            return base.Calculate(variables).Replace(' ', Symbol);
         }
     }
 
@@ -159,8 +166,9 @@ namespace Core
 
         public override string Calculate(Dictionary<string, string> variables = null)
         {
+            base.Calculate(variables);
             Accept(rv);
-            return formula.Calculate();
+            return base.Calculate(variables);
         }
     }
 
@@ -169,7 +177,7 @@ namespace Core
     {
         public override string Calculate(Dictionary<string, string> variables = null)
         {
-            return string.Format("({0})", formula.Calculate());
+            return string.Format("({0})", base.Calculate(variables));
         }
     }
 
@@ -186,7 +194,7 @@ namespace Core
 
         public override string Calculate(Dictionary<string, string> variables = null)
         {
-            return cfr.Remove(Calculate());
+            return cfr.Remove(base.Calculate(variables));
         }
     }
 }

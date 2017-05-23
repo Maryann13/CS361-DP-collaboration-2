@@ -41,7 +41,27 @@ namespace Core
                 (new ConstVar(source), new ConstVar(dest));
         }
 
-        public void Visit(FormulaDecorator f)
+        public void Visit(RemoveSpacesDecorator f)
+        {
+            rv.Visit(f);
+        }
+
+        public void Visit(ReplaceSpaceDecorator f)
+        {
+            rv.Visit(f);
+        }
+
+        public void Visit(ReplaceSubstringDecorator f)
+        {
+            rv.Visit(f);
+        }
+
+        public void Visit(CharsFreqRemoveAdapter f)
+        {
+            rv.Visit(f);
+        }
+
+        public void Visit(ParenthesesDecorator f)
         {
             rv.Visit(f);
         }

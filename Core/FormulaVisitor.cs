@@ -12,7 +12,11 @@ namespace Core
     {
         bool ToLeave { get; set; }
 
-        void Visit(FormulaDecorator formula);
+        void Visit(RemoveSpacesDecorator formula);
+        void Visit(ReplaceSpaceDecorator formula);
+        void Visit(ReplaceSubstringDecorator formula);
+        void Visit(CharsFreqRemoveAdapter formula);
+        void Visit(ParenthesesDecorator formula);
         void Visit(ConcatDecorator formula);
     }
 
@@ -33,7 +37,27 @@ namespace Core
             ToLeave = false;
         }
 
-        public void Visit(FormulaDecorator f)
+        public void Visit(RemoveSpacesDecorator f)
+        {
+            Replace(f);
+        }
+
+        public void Visit(ReplaceSpaceDecorator f)
+        {
+            Replace(f);
+        }
+
+        public void Visit(ReplaceSubstringDecorator f)
+        {
+            Replace(f);
+        }
+
+        public void Visit(CharsFreqRemoveAdapter f)
+        {
+            Replace(f);
+        }
+
+        public void Visit(ParenthesesDecorator f)
         {
             Replace(f);
         }

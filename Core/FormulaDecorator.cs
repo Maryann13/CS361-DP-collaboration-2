@@ -32,13 +32,6 @@ namespace Core
         {
             return formula.Calculate(variables);
         }
-
-        public override void Accept(FormulaVisitor v)
-        {
-            v.Visit(this);
-            if (!v.ToLeave)
-                formula.Accept(v);
-        }
     }
 
     // Обёртка над строкой для различения констант и переменных
@@ -87,6 +80,13 @@ namespace Core
         {
             return base.Calculate(variables).Trim();
         }
+
+        public override void Accept(FormulaVisitor v)
+        {
+            v.Visit(this);
+            if (!v.ToLeave)
+                formula.Accept(v);
+        }
     }
 
     // Конкатенация строк. F && c и F && v
@@ -113,6 +113,13 @@ namespace Core
             else
                 throw new ApplicationException("Uninitialized variable");
         }
+
+        public override void Accept(FormulaVisitor v)
+        {
+            v.Visit(this);
+            if (!v.ToLeave)
+                formula.Accept(v);
+        }
     }
 
     // Замена в строке F пробельных символов на символ a. F # a
@@ -135,6 +142,13 @@ namespace Core
         public override string Calculate(Dictionary<string, string> variables = null)
         {
             return base.Calculate(variables).Replace(' ', Symbol);
+        }
+
+        public override void Accept(FormulaVisitor v)
+        {
+            v.Visit(this);
+            if (!v.ToLeave)
+                formula.Accept(v);
         }
     }
 
@@ -170,6 +184,13 @@ namespace Core
             Accept(rv);
             return base.Calculate(variables);
         }
+
+        public override void Accept(FormulaVisitor v)
+        {
+            v.Visit(this);
+            if (!v.ToLeave)
+                formula.Accept(v);
+        }
     }
 
     // Круглые скобки. (F)
@@ -178,6 +199,13 @@ namespace Core
         public override string Calculate(Dictionary<string, string> variables = null)
         {
             return string.Format("({0})", base.Calculate(variables));
+        }
+
+        public override void Accept(FormulaVisitor v)
+        {
+            v.Visit(this);
+            if (!v.ToLeave)
+                formula.Accept(v);
         }
     }
 
@@ -195,6 +223,13 @@ namespace Core
         public override string Calculate(Dictionary<string, string> variables = null)
         {
             return cfr.Remove(base.Calculate(variables));
+        }
+
+        public override void Accept(FormulaVisitor v)
+        {
+            v.Visit(this);
+            if (!v.ToLeave)
+                formula.Accept(v);
         }
     }
 }

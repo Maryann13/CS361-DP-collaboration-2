@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Core.FormulaDecorator">
+    <Position X="11.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABEACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FormulaDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.ConstVar">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>FormulaDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.RemoveSpacesDecorator">
+    <Position X="11.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FormulaDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.ConcatDecorator">
+    <Position X="2.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAACAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FormulaDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.ReplaceSpaceDecorator">
+    <Position X="7.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAIAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>FormulaDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.ReplaceSubstringDecorator">
+    <Position X="14" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>FormulaDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.ParenthesesDecorator">
+    <Position X="5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FormulaDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.CharsFreqRemoveAdapter">
+    <Position X="9.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAACAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FormulaDecorator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.ReplaceFormulaVisitor">
+    <Position X="2.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAEEAAAQAAAAAAAAAAAAAAAAAAAAAAAAAACE=</HashCode>
+      <FileName>FormulaVisitor.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Core.Formula">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Formula.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Const">
+    <Position X="8.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAIAAAAAAAAAAAAAAAAAAACAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Formula.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.Var">
+    <Position X="6.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAIAAAAAAAAAAAAAAAAAAACAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Formula.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core.ReplaceVisitorAdapter">
+    <Position X="0.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAQAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>VisitorAdapter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Core.FormulaVisitor">
+    <Position X="1.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FormulaVisitor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
